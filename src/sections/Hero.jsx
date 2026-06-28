@@ -71,7 +71,7 @@ export const Hero = () => {
                   Contact Me <ArrowRight className="w-5 h-5" />
                 </Button>
               </a>
-              <a href="/resume.pdf" download>
+              <a href="https://docs.google.com/document/d/1au5iPuvaO7r77buS1WIUpeccLZHtwv_OfvgX58GOf8M/export?format=pdf" target="_blank" rel="noopener noreferrer">
                 <AnimatedBorderButton />
               </a>
             </div>
