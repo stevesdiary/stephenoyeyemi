@@ -1,3 +1,1 @@
-export const Testimonials = () => {
-  return <header> </header>
-}
+export const Testimonials = () => null;
