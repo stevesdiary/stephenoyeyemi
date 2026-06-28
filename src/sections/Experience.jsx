@@ -1,27 +1,54 @@
 const experiences = [
   {
+    role: "Backend Application Developer",
+    company: "ProvidusBank PLC",
+    type: "Contract",
+    location: "Lagos, Nigeria",
+    period: "Apr 2025 — Present",
+    highlights: [
+      "Automated Diaspora Mortgage loan application process with a cross-functional team, reducing processing time by 90% and improving digital inclusion for diaspora customers.",
+      "Engineered a secure Anonymous Feedback Portal enabling confidential staff submissions with real-time issue tracking and resolution workflows.",
+      "Integrated multiple merchant APIs for ProviBill electricity payment service with failover mechanisms, eliminating downtime and increasing customer satisfaction by 20%.",
+      "Built scalable Onboarding Portal API automating staff enrollment across multiple services, cutting onboarding time by 90% with secure bulk data processing.",
+    ],
+    tags: ["Node.js", "TypeScript", "Express.js", "PostgreSQL", "REST APIs", "JWT"],
+  },
+  {
+    role: "Backend Software Engineer",
+    company: "Talenvo",
+    type: "Freelance",
+    location: "Remote",
+    period: "Dec 2024 — Mar 2025",
+    highlights: [
+      "Architected complete server-side infrastructure for EduBridge, a low-data educational platform serving out-of-school children, optimised for minimal bandwidth while maintaining high performance.",
+      "Developed backend system for HealthBridge, a healthcare appointment booking platform with location-based services connecting patients to the nearest providers and specialists.",
+    ],
+    tags: ["Node.js", "Express.js", "PostgreSQL", "REST APIs", "Microservices"],
+  },
+  {
     role: "Software Engineer",
-    company: "Tech Company",
-    period: "2023 — Present",
-    description:
-      "Building scalable REST APIs and microservices serving thousands of users daily. Leading backend architecture decisions, conducting code reviews, and mentoring junior engineers on best practices.",
-    tags: ["Node.js", "TypeScript", "PostgreSQL", "Docker"],
+    company: "Aella Microfinance Bank",
+    type: "",
+    location: "Lagos, Nigeria",
+    period: "Jul 2022 — Dec 2024",
+    highlights: [
+      "Designed and implemented a critical transaction validation service processing 13M+ monthly transactions for 2M+ active users, achieving 99.9% uptime and reducing error rates by 40%.",
+      "Spearheaded automated transaction retry system that reduced manual finance team workload by 90%, saving 10 hours weekly and improving business customer satisfaction to 95%.",
+      "Refactored event service architecture, delivering 50% improved response times and a 30% increase in user engagement through query optimisation and caching strategies.",
+    ],
+    tags: ["Node.js", "TypeScript", "PostgreSQL", "Redis", "Docker", "Sequelize ORM"],
   },
   {
-    role: "Backend Developer",
-    company: "Startup Inc.",
-    period: "2022 — 2023",
-    description:
-      "Developed and maintained high-performance Express.js APIs for a SaaS platform. Implemented real-time features with WebSockets, optimized database queries, and reduced API response times by 40%.",
-    tags: ["Node.js", "Express.js", "MongoDB", "Redis"],
-  },
-  {
-    role: "Junior Developer",
-    company: "Agency Co.",
-    period: "2021 — 2022",
-    description:
-      "Built full-stack web applications for clients across multiple industries. Integrated third-party APIs, worked in agile delivery cycles, and shipped features on tight deadlines.",
-    tags: ["JavaScript", "Node.js", "MySQL"],
+    role: "Engineering Intern",
+    company: "Aella Microfinance Bank",
+    type: "",
+    location: "Lagos, Nigeria",
+    period: "Jan 2022 — Jun 2022",
+    highlights: [
+      "Designed and implemented a RESTful Visitor Management API reducing check-in/check-out time by 45% through efficient data processing and streamlined workflows.",
+      "Contributed to codebase optimisation efforts, achieving 20% faster application response times through refactoring and performance improvements.",
+    ],
+    tags: ["Node.js", "JavaScript", "Express.js", "REST APIs"],
   },
 ];
 
@@ -49,32 +76,39 @@ export const Experience = () => {
             {experiences.map((exp, i) => (
               <div
                 key={i}
-                className={`relative flex gap-8 ${
-                  i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
+                className={`relative flex gap-8 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
               >
                 {/* Timeline dot */}
                 <div className="absolute left-4 md:left-1/2 top-6 w-3 h-3 rounded-full bg-primary timeline-glow -translate-x-1.5" />
 
                 {/* Card */}
-                <div
-                  className={`ml-12 md:ml-0 md:w-1/2 animate-fade-in ${
-                    i % 2 === 0 ? "md:pr-10" : "md:pl-10"
-                  }`}
-                >
+                <div className={`ml-12 md:ml-0 md:w-1/2 animate-fade-in ${i % 2 === 0 ? "md:pr-10" : "md:pl-10"}`}>
                   <div className="glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-300">
-                    <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
+                    <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
                       <div>
-                        <h3 className="font-bold text-lg">{exp.role}</h3>
-                        <p className="text-primary text-sm font-medium">{exp.company}</p>
+                        <h3 className="font-bold text-lg leading-tight">{exp.role}</h3>
+                        <p className="text-primary text-sm font-medium">
+                          {exp.company}
+                          {exp.type && (
+                            <span className="text-muted-foreground font-normal"> · {exp.type}</span>
+                          )}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-0.5">{exp.location}</p>
                       </div>
                       <span className="text-xs text-muted-foreground glass px-3 py-1 rounded-full whitespace-nowrap">
                         {exp.period}
                       </span>
                     </div>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                      {exp.description}
-                    </p>
+
+                    <ul className="mt-3 mb-4 space-y-2">
+                      {exp.highlights.map((point, j) => (
+                        <li key={j} className="flex gap-2 text-muted-foreground text-sm leading-relaxed">
+                          <span className="text-primary mt-1 shrink-0">▹</span>
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+
                     <div className="flex flex-wrap gap-2">
                       {exp.tags.map((tag, j) => (
                         <span
@@ -88,7 +122,7 @@ export const Experience = () => {
                   </div>
                 </div>
 
-                {/* Empty spacer for alternating layout */}
+                {/* Spacer for alternating layout */}
                 <div className="hidden md:block md:w-1/2" />
               </div>
             ))}

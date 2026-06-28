@@ -25,22 +25,24 @@ const highlights = [
 
 const stats = [
   { value: "4+", label: "Years Experience" },
-  { value: "20+", label: "Projects Built" },
-  { value: "10+", label: "Clients Served" },
-  { value: "99%", label: "Client Satisfaction" },
+  { value: "13M+", label: "Transactions / Month" },
+  { value: "2M+", label: "Active Users Served" },
+  { value: "99.9%", label: "Uptime Achieved" },
 ];
 
 const skills = [
   { name: "Node.js", icon: Server },
   { name: "TypeScript", icon: Code2 },
+  { name: "JavaScript", icon: Code2 },
   { name: "Express.js", icon: Layers },
   { name: "PostgreSQL", icon: Database },
-  { name: "MongoDB", icon: Database },
-  { name: "REST APIs", icon: Globe },
-  { name: "Docker", icon: Server },
   { name: "Redis", icon: Database },
-  { name: "Git", icon: GitBranch },
-  { name: "Linux", icon: Terminal },
+  { name: "Sequelize ORM", icon: Database },
+  { name: "REST APIs", icon: Globe },
+  { name: "Microservices", icon: Globe },
+  { name: "Docker", icon: Server },
+  { name: "Git & GitHub", icon: GitBranch },
+  { name: "JWT Auth", icon: Terminal },
 ];
 
 export const About = () => {
