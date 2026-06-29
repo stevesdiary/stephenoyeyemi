@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail, Send } from 'lucide-react';
 import { Button } from '@/components/Button';
 
 // Replace YOUR_FORM_ID with your Formspree form ID from formspree.io
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzdlvpal";
 
 export const Contact = () => {
   const [status, setStatus] = useState("idle");
