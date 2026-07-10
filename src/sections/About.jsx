@@ -35,9 +35,19 @@ const skills = [
   { name: "TypeScript", icon: Code2 },
   { name: "JavaScript", icon: Code2 },
   { name: "Express.js", icon: Layers },
+  { name: "Fastify", icon: Layers },
+  { name: "Nest.js", icon: Layers},
   { name: "PostgreSQL", icon: Database },
+  { name: "MySQL", icon: Database },
+  { name: "Microsoft SQL Server", icon: Database },
+  { name: "AWS S3", icon: Database },
+  { name: "AWS Lambda", icon: Server },
+  { name: "Cloudflare", icon: Server },
   { name: "Redis", icon: Database },
+  { name: "MongoDB", icon: Database },
   { name: "Sequelize ORM", icon: Database },
+  { name: "Drizzle", icon: Database },
+  { name: "Prisma ORM", icon: Database },
   { name: "REST APIs", icon: Globe },
   { name: "Microservices", icon: Globe },
   { name: "Docker", icon: Server },
@@ -71,7 +81,7 @@ export const About = () => {
                 style={{ background: "var(--color-primary)" }}
               />
               <img
-                src="/profile-photo.png"
+                src={`${import.meta.env.BASE_URL}profile-photo.png`}
                 alt="Stephen Oyeyemi"
                 className="relative w-full aspect-square object-cover rounded-2xl"
               />
@@ -92,7 +102,7 @@ export const About = () => {
               </p>
               <p className="text-muted-foreground leading-relaxed">
                 I thrive at the intersection of great engineering and meaningful user experiences. When I'm
-                not writing code, I'm exploring new technologies, contributing to open-source, and sharing
+                not writing code, I'm exploring new technologies, reading, contributing to open-source, and sharing
                 knowledge with the developer community.
               </p>
             </div>
