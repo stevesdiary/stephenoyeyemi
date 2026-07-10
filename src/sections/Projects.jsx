@@ -6,7 +6,7 @@ const projects = [
     title: "E-Commerce Platform API",
     description:
       "A full-featured REST API for an e-commerce platform supporting product management, user authentication, cart operations, and payment processing with Stripe integration.",
-    image: `${import.meta.env.BASE_URL}profile-steve.PNG`,
+    image: `${import.meta.env.BASE_URL}project1.png`,
     tags: ["Node.js", "Express.js", "TypeScript", "PostgreSQL", "Stripe"],
     liveUrl: "#",
     githubUrl: "https://github.com/stevesdiary",
