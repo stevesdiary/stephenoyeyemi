@@ -1,8 +1,8 @@
 const experiences = [
   {
     role: "Backend Application Developer",
-    company: "ProvidusBank PLC",
-    type: "Contract",
+    company: "ProvidusUnity Bank Ltd.",
+    // type: "Contract",
     location: "Lagos, Nigeria",
     period: "Apr 2025 — Present",
     highlights: [
@@ -11,7 +11,7 @@ const experiences = [
       "Integrated multiple merchant APIs for ProviBill electricity payment service with failover mechanisms, eliminating downtime and increasing customer satisfaction by 20%.",
       "Built scalable Onboarding Portal API automating staff enrollment across multiple services, cutting onboarding time by 90% with secure bulk data processing.",
     ],
-    tags: ["Node.js", "TypeScript", "Express.js", "PostgreSQL", "REST APIs", "JWT"],
+    tags: ["Node.js", "TypeScript", "Express.js", "MicrosoftSQL", "REST APIs", "JWT", "PGP", "ProcessMaker"],
   },
   {
     role: "Backend Software Engineer",
@@ -23,12 +23,12 @@ const experiences = [
       "Architected complete server-side infrastructure for EduBridge, a low-data educational platform serving out-of-school children, optimised for minimal bandwidth while maintaining high performance.",
       "Developed backend system for HealthBridge, a healthcare appointment booking platform with location-based services connecting patients to the nearest providers and specialists.",
     ],
-    tags: ["Node.js", "Express.js", "PostgreSQL", "REST APIs", "Microservices"],
+    tags: ["Node.js", "Express.js", "PostgreSQL", "REST APIs"],
   },
   {
     role: "Software Engineer",
     company: "Aella Microfinance Bank",
-    type: "",
+    // type: "Staff",
     location: "Lagos, Nigeria",
     period: "Jul 2022 — Dec 2024",
     highlights: [
@@ -36,7 +36,7 @@ const experiences = [
       "Spearheaded automated transaction retry system that reduced manual finance team workload by 90%, saving 10 hours weekly and improving business customer satisfaction to 95%.",
       "Refactored event service architecture, delivering 50% improved response times and a 30% increase in user engagement through query optimisation and caching strategies.",
     ],
-    tags: ["Node.js", "TypeScript", "PostgreSQL", "Redis", "Docker", "Sequelize ORM"],
+    tags: ["Node.js", "TypeScript", "PostgreSQL", "Redis", "Docker", "Sequelize ORM", "Microservices"],
   },
   {
     role: "Engineering Intern",

@@ -159,7 +159,7 @@ export const Contact = () => {
             <div className="glass rounded-2xl p-6">
               <h3 className="font-semibold mb-2">Availability</h3>
               <p className="text-muted-foreground text-sm mb-3">
-                Currently open to new opportunities — full-time, freelance, or consulting.
+                Currently open to new opportunities — full-time, freelance, or part-time.
               </p>
               <span className="inline-flex items-center gap-2 text-sm text-primary">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />

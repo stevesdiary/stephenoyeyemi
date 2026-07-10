@@ -14,7 +14,7 @@ export const Hero = () => {
       {/* Background */}
       <div className="absolute inset-0">
         <img
-          src="/hero-background.jpg"
+          src={`${import.meta.env.BASE_URL}hero-background.jpg`}
           alt="Hero background"
           className="w-full h-full object-cover opacity-40"
         />
@@ -102,7 +102,7 @@ export const Hero = () => {
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/30 via-transparent to-primary/10 blur-2xl animate-pulse" />
               <div className="relative glass rounded-3xl p-2 glow-border">
                 <img
-                  src="/Steve.png"
+                  src={`${import.meta.env.BASE_URL}Steve.png`}
                   alt="Stephen Oyeyemi"
                   className="w-full aspect-[4/5] object-cover rounded-2xl"
                 />
