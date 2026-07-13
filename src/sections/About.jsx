@@ -81,7 +81,7 @@ export const About = () => {
                 style={{ background: "var(--color-primary)" }}
               />
               <img
-                src={`${import.meta.env.BASE_URL}profile-steve.PNG`}
+                src={`${import.meta.env.BASE_URL}profile-steve.png`}
                 alt="Stephen Oyeyemi"
                 className="relative w-full aspect-square object-cover rounded-2xl"
               />

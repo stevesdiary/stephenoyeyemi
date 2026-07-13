@@ -1,11 +1,30 @@
-import { Button } from '@/components/Button';
-import { AnimatedBorderButton } from '@/components/AnimatedBorderButton';
-import { ArrowRight, ChevronDown, Github, Linkedin, Twitter } from 'lucide-react';
+import { Button } from "@/components/Button";
+import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
+import {
+  ArrowRight,
+  ChevronDown,
+  Github,
+  Linkedin,
+  Twitter,
+} from "lucide-react";
 
 const skills = [
-  'JavaScript', 'TypeScript', 'Node.js', 'Git', 'Prisma', 'Sequelize',
-  'MongoDB', 'Express', 'PostgreSQL', 'AWS', 'Docker', 'React',
-  'Tailwind CSS', 'Next.js', 'Redis', 'MySQL',
+  "JavaScript",
+  "TypeScript",
+  "Node.js",
+  "Git",
+  "Prisma",
+  "Sequelize",
+  "MongoDB",
+  "Express",
+  "PostgreSQL",
+  "AWS",
+  "Docker",
+  "React",
+  "Tailwind CSS",
+  "Next.js",
+  "Redis",
+  "MySQL",
 ];
 
 const dots = [...Array(30)].map(() => ({
@@ -48,7 +67,6 @@ export const Hero = () => {
       {/* Content */}
       <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-
           {/* Left column */}
           <div className="space-y-8">
             <div className="animate-fade-in">
@@ -64,11 +82,14 @@ export const Hero = () => {
                 <br />
                 software solutions with
                 <br />
-                <span className="font-serif italic font-normal text-white">precision.</span>
+                <span className="font-serif italic font-normal text-white">
+                  precision.
+                </span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-200">
-                Hi, I'm Stephen Oyeyemi — a Software Engineer specializing in Node.js, Express.js, and TypeScript.
-                I build scalable, performant web applications using cutting-edge technologies.
+                Hi, I'm Stephen Oyeyemi — a Software Engineer specializing in
+                Node.js, Express.js, and TypeScript. I build scalable,
+                performant web applications using cutting-edge technologies.
               </p>
             </div>
 
@@ -78,7 +99,11 @@ export const Hero = () => {
                   Contact Me <ArrowRight className="w-5 h-5" />
                 </Button>
               </a>
-              <a href="https://docs.google.com/document/d/1au5iPuvaO7r77buS1WIUpeccLZHtwv_OfvgX58GOf8M/export?format=pdf" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://docs.google.com/document/d/1au5iPuvaO7r77buS1WIUpeccLZHtwv_OfvgX58GOf8M/export?format=pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <AnimatedBorderButton />
               </a>
             </div>
@@ -86,7 +111,10 @@ export const Hero = () => {
             <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
               <span className="text-sm text-muted-foreground">Follow me:</span>
               {[
-                { icon: Linkedin, href: "https://www.linkedin.com/in/stephenoyeyemi/" },
+                {
+                  icon: Linkedin,
+                  href: "https://www.linkedin.com/in/stephenoyeyemi/",
+                },
                 { icon: Github, href: "https://github.com/stevesdiary" },
                 { icon: Twitter, href: "https://x.com/stevesdiary_" },
               ].map((social, idx) => (
@@ -109,7 +137,7 @@ export const Hero = () => {
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/30 via-transparent to-primary/10 blur-2xl animate-pulse" />
               <div className="relative glass rounded-3xl p-2 glow-border">
                 <img
-                  src={`${import.meta.env.BASE_URL}profile-steve.PNG`}
+                  src={`${import.meta.env.BASE_URL}profile-steve.png`}
                   alt="Stephen Oyeyemi"
                   className="w-full aspect-[4/5] object-cover rounded-2xl"
                 />
@@ -117,7 +145,9 @@ export const Hero = () => {
                 <div className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3 animate-float">
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-sm font-medium">Available for work</span>
+                    <span className="text-sm font-medium">
+                      Available for work
+                    </span>
                   </div>
                 </div>
                 {/* Years badge */}
@@ -130,12 +160,13 @@ export const Hero = () => {
               </div>
             </div>
           </div>
-
         </div>
 
         {/* Skills marquee */}
         <div className="mt-20 animate-fade-in animation-delay-600">
-          <p className="text-sm text-muted-foreground mb-6 text-center">Technologies I work with</p>
+          <p className="text-sm text-muted-foreground mb-6 text-center">
+            Technologies I work with
+          </p>
           <div className="relative overflow-hidden">
             <div className="flex animate-marquee">
               {[...skills, ...skills].map((skill, idx) => (
