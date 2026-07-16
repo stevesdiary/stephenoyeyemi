@@ -27,6 +27,8 @@ const skills = [
   "MySQL",
 ];
 
+const yearsExp = new Date().getFullYear() - 2022;
+
 const dots = [...Array(30)].map(() => ({
   left: `${Math.random() * 100}%`,
   top: `${Math.random() * 100}%`,
@@ -153,7 +155,7 @@ export const Hero = () => {
                 {/* Years badge */}
                 <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3 animate-float animation-delay-500">
                   <div className="text-2xl font-bold text-primary">
-                    4+
+                    {yearsExp}+
                     <span className="text-xs text-foreground"> Years Exp.</span>
                   </div>
                 </div>

@@ -23,8 +23,10 @@ const highlights = [
   },
 ];
 
+const yearsOfExperience = new Date().getFullYear() - 2022;
+
 const stats = [
-  { value: "4+", label: "Years Experience" },
+  { value: `${yearsOfExperience}+`, label: "Years Experience" },
   { value: "13M+", label: "Transactions / Month" },
   { value: "2M+", label: "Active Users Served" },
   { value: "99.9%", label: "Uptime Achieved" },
@@ -74,7 +76,7 @@ export const About = () => {
 
         {/* Bio + photo */}
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          <div className="relative animate-fade-in">
+          <div className="relative animate-fade-in hidden lg:block">
             <div className="relative max-w-sm mx-auto lg:mx-0">
               <div
                 className="absolute -inset-4 rounded-2xl opacity-20 blur-2xl"
