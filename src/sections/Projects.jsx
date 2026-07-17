@@ -1,70 +1,71 @@
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 const projects = [
   {
     id: 1,
-    title: "E-Commerce Platform API",
+    title: "TRAKA Logistics",
     description:
-      "A full-featured REST API for an e-commerce platform supporting product management, user authentication, cart operations, and payment processing with Stripe integration.",
-    image: `${import.meta.env.BASE_URL}project1.png`,
-    tags: ["Node.js", "Express.js", "TypeScript", "PostgreSQL", "Stripe"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/stevesdiary",
-    featured: true,
+      "A logistics application featuring a backend API, mobile app, and web page for administrative management — streamlining operations and tracking across the supply chain.",
+    image: `${import.meta.env.BASE_URL}Traka-project.png`,
+    tags: [
+      "Node.js",
+      "React Native",
+      "PostgreSQL",
+      "ReactJs",
+      "Redis",
+      "Express",
+      "Sequelize ORM",
+      "TypeScript",
+    ],
+    liveUrl: "https://tkweb-co00.onrender.com",
   },
   {
     id: 2,
-    title: "Real-time Chat Service",
+    title: "Lockwise - Real Estate Management Platform",
     description:
-      "A scalable WebSocket-based chat service with room management, message persistence, and user presence tracking built to handle thousands of concurrent connections.",
+      "A real estate management platform with security access features — enabling property management, tenant oversight, and secure access control.",
     image: `${import.meta.env.BASE_URL}Project2.png`,
-    tags: ["Node.js", "Socket.io", "Redis", "MongoDB"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/stevesdiary",
-    featured: false,
+    tags: [
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "ReactJs",
+      "Sequelize ORM",
+      "TypeScript",
+    ],
+    liveUrl: "https://lockwise-landing-page.onrender.com",
   },
   {
     id: 3,
-    title: "Task Management System",
+    title: "SchoolOS - School Management Platform",
     description:
-      "A collaborative task management API with role-based access control, real-time notifications, and team workspace features designed for distributed teams.",
+      "A school management platform for private schools with a mobile app for parents — providing real-time updates, payment processing, and student performance tracking.",
     image: `${import.meta.env.BASE_URL}Project3.png`,
-    tags: ["TypeScript", "Express.js", "PostgreSQL", "Docker"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/stevesdiary",
-    featured: false,
+    tags: [
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "ReactJs",
+      "Flutter",
+      "Prisma ORM",
+      "TypeScript",
+    ],
+    liveUrl: "https://smp-client.onrender.com",
   },
 ];
 
-const ProjectCard = ({ project, featured = false }) => (
-  <div
-    className={`glass rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-500 group ${
-      featured ? "lg:grid lg:grid-cols-2" : "flex flex-col"
-    }`}
-  >
-    <div
-      className={`overflow-hidden ${featured ? "h-full min-h-[280px]" : "h-52"}`}
-    >
+const ProjectCard = ({ project }) => (
+  <div className="glass rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-500 group flex flex-col">
+    <div className="overflow-hidden h-52">
       <img
         src={project.image}
         alt={project.title}
         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
       />
     </div>
-    <div
-      className={`flex flex-col justify-between ${featured ? "p-8" : "p-6 flex-1"}`}
-    >
+    <div className="flex flex-col justify-between p-6 flex-1">
       <div className="space-y-3">
-        {featured && (
-          <span className="text-xs font-semibold tracking-widest uppercase text-primary">
-            Featured Project
-          </span>
-        )}
-        <h3
-          className={`font-bold group-hover:text-primary transition-colors ${
-            featured ? "text-2xl" : "text-xl"
-          }`}
-        >
+        <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
           {project.title}
         </h3>
         <p className="text-muted-foreground text-sm leading-relaxed">
@@ -83,14 +84,6 @@ const ProjectCard = ({ project, featured = false }) => (
       </div>
       <div className="flex gap-4 pt-5">
         <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <Github className="w-4 h-4" /> Code
-        </a>
-        <a
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
@@ -104,9 +97,6 @@ const ProjectCard = ({ project, featured = false }) => (
 );
 
 export const Projects = () => {
-  const featured = projects.find((p) => p.featured);
-  const rest = projects.filter((p) => !p.featured);
-
   return (
     <section id="projects" className="py-24 relative">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -133,13 +123,10 @@ export const Projects = () => {
           </p>
         </div>
 
-        <div className="space-y-8">
-          {featured && <ProjectCard project={featured} featured />}
-          <div className="grid md:grid-cols-2 gap-8">
-            {rest.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
         </div>
       </div>
     </section>
