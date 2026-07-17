@@ -24,7 +24,7 @@ const projects = [
     title: "Lockwise - Real Estate Management Platform",
     description:
       "A real estate management platform with security access features — enabling property management, tenant oversight, and secure access control.",
-    image: `${import.meta.env.BASE_URL}Project2.png`,
+    image: `${import.meta.env.BASE_URL}Lockwise-project.png`,
     tags: [
       "Node.js",
       "Express",
@@ -40,7 +40,7 @@ const projects = [
     title: "SchoolOS - School Management Platform",
     description:
       "A school management platform for private schools with a mobile app for parents — providing real-time updates, payment processing, and student performance tracking.",
-    image: `${import.meta.env.BASE_URL}Project3.png`,
+    image: `${import.meta.env.BASE_URL}SchoolOS-project1.png`,
     tags: [
       "Node.js",
       "Express",
