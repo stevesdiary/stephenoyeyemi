@@ -76,14 +76,14 @@ export const About = () => {
 
         {/* Bio + photo */}
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          <div className="relative animate-fade-in hidden lg:block">
+          <div className="relative animate-fade-in order-first">
             <div className="relative max-w-sm mx-auto lg:mx-0">
               <div
                 className="absolute -inset-4 rounded-2xl opacity-20 blur-2xl"
                 style={{ background: "var(--color-primary)" }}
               />
               <img
-                src={`${import.meta.env.BASE_URL}profile-steve.png`}
+                src={`${import.meta.env.BASE_URL}profile-steve.PNG`}
                 alt="Stephen Oyeyemi"
                 className="relative w-full aspect-square object-cover rounded-2xl"
               />
