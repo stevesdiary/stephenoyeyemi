@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Github, Linkedin, Mail, Send } from 'lucide-react';
 import { Button } from '@/components/Button';
 
-// Replace YOUR_FORM_ID with your Formspree form ID from formspree.io
+// Formspree form endpoint (https://formspree.io)
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzdlvpal";
 
 export const Contact = () => {
@@ -52,8 +52,9 @@ export const Contact = () => {
           <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-5 glass rounded-2xl p-8 animate-fade-in">
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-sm font-medium mb-2">Name</label>
+                <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
                 <input
+                  id="name"
                   name="name"
                   required
                   placeholder="John Doe"
@@ -61,8 +62,9 @@ export const Contact = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Email</label>
+                <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
                 <input
+                  id="email"
                   name="email"
                   type="email"
                   required
@@ -72,8 +74,9 @@ export const Contact = () => {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Subject</label>
+              <label htmlFor="subject" className="block text-sm font-medium mb-2">Subject</label>
               <input
+                id="subject"
                 name="subject"
                 required
                 placeholder="Project collaboration"
@@ -81,8 +84,9 @@ export const Contact = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Message</label>
+              <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
               <textarea
+                id="message"
                 name="message"
                 required
                 rows={5}
@@ -126,7 +130,7 @@ export const Contact = () => {
                   <Mail className="w-5 h-5 text-primary shrink-0" />
                   <div className="min-w-0">
                     <p className="text-xs text-muted-foreground">Email</p>
-                    <p className="text-sm font-medium truncate">stephenoyeyemi@gmail.com</p>
+                    <p className="text-sm font-medium truncate">Send email</p>
                   </div>
                 </a>
                 <a
