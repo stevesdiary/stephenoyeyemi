@@ -116,15 +116,17 @@ export const Hero = () => {
                 {
                   icon: Linkedin,
                   href: "https://www.linkedin.com/in/stephenoyeyemi/",
+                  label: "LinkedIn",
                 },
-                { icon: Github, href: "https://github.com/stevesdiary" },
-                { icon: Twitter, href: "https://x.com/stevesdiary_" },
+                { icon: Github, href: "https://github.com/stevesdiary", label: "GitHub" },
+                { icon: Twitter, href: "https://x.com/stevesdiary_", label: "X (Twitter)" },
               ].map((social, idx) => (
                 <a
                   key={idx}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={social.label}
                   className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
                 >
                   <social.icon className="w-5 h-5" />
