@@ -52,6 +52,24 @@ const projects = [
     ],
     liveUrl: "https://smp-client.onrender.com",
   },
+  {
+    id: 4,
+    title: "Luxe - Fashion E-commerce Platform",
+    description:
+      "A full-featured e-commerce platform for fashion brands with seller management, product catalog, order processing, Stripe payments, return handling, and real-time push notifications.",
+    image: `${import.meta.env.BASE_URL}fashion-ecommerce-project.png`,
+    tags: [
+      "Node.js",
+      "Express",
+      "Redis",
+      "PostgreSQL",
+      "Sequelize ORM",
+      "Stripe",
+      "AWS S3",
+      "Firebase",
+    ],
+    liveUrl: "#",
+  },
 ];
 
 const ProjectCard = ({ project }) => (
