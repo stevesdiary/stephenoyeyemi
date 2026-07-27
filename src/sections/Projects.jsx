@@ -54,9 +54,9 @@ const projects = [
   },
   {
     id: 4,
-    title: "Luxe - Fashion E-commerce Platform",
+    title: "E-commerce Platform",
     description:
-      "A full-featured e-commerce platform for fashion brands with seller management, product catalog, order processing, Stripe payments, return handling, and real-time push notifications.",
+      "A full-featured e-commerce platform with seller management, product catalog, order processing, Stripe payments, return handling, and real-time push notifications.",
     image: `${import.meta.env.BASE_URL}fashion-ecommerce-project.png`,
     tags: [
       "Node.js",
