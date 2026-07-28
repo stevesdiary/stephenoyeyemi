@@ -46,6 +46,7 @@ const skills = [
   { name: "AWS Lambda", icon: Server },
   { name: "Cloudflare", icon: Server },
   { name: "Redis", icon: Database },
+  { name: "BullMQ", icon: Database },
   { name: "MongoDB", icon: Database },
   { name: "Sequelize ORM", icon: Database },
   { name: "Drizzle", icon: Database },
