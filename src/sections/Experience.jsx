@@ -1,3 +1,8 @@
+import { useEffect, useRef, useState } from "react";
+import { Reveal } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
+import { SpotlightCard } from "@/components/SpotlightCard";
+
 const experiences = [
   {
     role: "Backend Application Developer",
@@ -52,81 +57,133 @@ const experiences = [
   },
 ];
 
+// Tracks how far (0→1) the timeline has scrolled past 60% of the viewport,
+// and which dots the drawn line has reached.
+const useTimelineProgress = (dotRefs) => {
+  const ref = useRef(null);
+  const [state, setState] = useState({ progress: 0, reached: [] });
+
+  useEffect(() => {
+    let frame;
+    const update = () => {
+      frame = null;
+      const el = ref.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const anchor = window.innerHeight * 0.6;
+      const progress = Math.min(Math.max((anchor - rect.top) / rect.height, 0), 1);
+      const reached = dotRefs.current.map((dot) => {
+        if (!dot) return false;
+        const dotTop = dot.getBoundingClientRect().top - rect.top;
+        return dotTop / rect.height <= progress;
+      });
+      setState({ progress, reached });
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [dotRefs]);
+
+  return [ref, state.progress, state.reached];
+};
+
 export const Experience = () => {
+  const dotRefs = useRef([]);
+  const [timelineRef, progress, reached] = useTimelineProgress(dotRefs);
+
   return (
-    <section id="experience" className="py-24 relative">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute bottom-1/4 right-0 w-96 h-96 rounded-full opacity-5"
-          style={{ background: "radial-gradient(circle, var(--color-primary), transparent 70%)" }}
-        />
+    <section id="experience" className="py-28 relative">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute bottom-1/4 -right-40 w-[30rem] h-[30rem] rounded-full bg-navy-600/30 blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16 animate-fade-in">
-          <span className="text-primary text-sm font-medium tracking-widest uppercase">Career</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-2">Work Experience</h2>
-        </div>
+        <SectionHeading eyebrow="Career" title="Work Experience" />
 
-        <div className="max-w-3xl mx-auto relative">
-          {/* Vertical timeline line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-px" />
+        <div ref={timelineRef} className="max-w-4xl mx-auto relative">
+          {/* Vertical timeline line: faint track + silver fill that follows scroll */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-px" aria-hidden="true" />
+          <div
+            aria-hidden="true"
+            className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px md:-translate-x-px origin-top bg-gradient-to-b from-silver-100 via-silver-300 to-navy-400"
+            style={{ transform: `scaleY(${progress})` }}
+          />
 
-          <div className="space-y-12">
-            {experiences.map((exp, i) => (
-              <div
-                key={i}
-                className={`relative flex gap-8 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
-              >
-                {/* Timeline dot */}
-                <div className="absolute left-4 md:left-1/2 top-6 w-3 h-3 rounded-full bg-primary timeline-glow -translate-x-1.5" />
+          <ol className="space-y-12">
+            {experiences.map((exp, i) => {
+              const isLeft = i % 2 === 0;
+              return (
+                <li
+                  key={`${exp.company}-${exp.period}`}
+                  className={`relative flex gap-8 ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}
+                >
+                  {/* Timeline dot */}
+                  <div
+                    ref={(el) => { dotRefs.current[i] = el; }}
+                    aria-hidden="true"
+                    className={`absolute left-4 md:left-1/2 top-7 w-3 h-3 -translate-x-1.5 rounded-full border transition-all duration-500 ${
+                      reached[i]
+                        ? "bg-silver-100 border-silver-100 timeline-glow scale-125"
+                        : "bg-background border-silver-400/40"
+                    }`}
+                  />
 
-                {/* Card */}
-                <div className={`ml-12 md:ml-0 md:w-1/2 animate-fade-in ${i % 2 === 0 ? "md:pr-10" : "md:pl-10"}`}>
-                  <div className="glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-300">
-                    <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
-                      <div>
-                        <h3 className="font-bold text-lg leading-tight">{exp.role}</h3>
-                        <p className="text-primary text-sm font-medium">
-                          {exp.company}
-                          {exp.type && (
-                            <span className="text-muted-foreground font-normal"> · {exp.type}</span>
-                          )}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-0.5">{exp.location}</p>
-                      </div>
-                      <span className="text-xs text-muted-foreground glass px-3 py-1 rounded-full whitespace-nowrap">
-                        {exp.period}
-                      </span>
-                    </div>
-
-                    <ul className="mt-3 mb-4 space-y-2">
-                      {exp.highlights.map((point, j) => (
-                        <li key={j} className="flex gap-2 text-muted-foreground text-sm leading-relaxed">
-                          <span className="text-primary mt-1 shrink-0">▹</span>
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="flex flex-wrap gap-2">
-                      {exp.tags.map((tag, j) => (
-                        <span
-                          key={j}
-                          className="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full border border-primary/20"
-                        >
-                          {tag}
+                  {/* Card */}
+                  <Reveal
+                    direction={isLeft ? "left" : "right"}
+                    className={`ml-12 md:ml-0 md:w-1/2 ${isLeft ? "md:pr-10" : "md:pl-10"}`}
+                  >
+                    <SpotlightCard className="glass rounded-2xl p-6 transition-all duration-500 hover:border-silver-300/30 hover:-translate-y-1">
+                      <div className="flex flex-wrap items-start justify-between gap-3 mb-1">
+                        <div>
+                          <h3 className="font-semibold text-lg leading-tight">{exp.role}</h3>
+                          <p className="text-silver-200 text-sm font-medium mt-1">
+                            {exp.company}
+                            {exp.type && (
+                              <span className="text-muted-foreground font-normal"> · {exp.type}</span>
+                            )}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{exp.location}</p>
+                        </div>
+                        <span className="font-mono text-[0.7rem] text-silver-300 glass px-3 py-1 rounded-full whitespace-nowrap">
+                          {exp.period}
                         </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                      </div>
 
-                {/* Spacer for alternating layout */}
-                <div className="hidden md:block md:w-1/2" />
-              </div>
-            ))}
-          </div>
+                      <ul className="mt-4 mb-5 space-y-2.5">
+                        {exp.highlights.map((point, j) => (
+                          <li key={j} className="flex gap-3 text-muted-foreground text-sm leading-relaxed">
+                            <span className="mt-2 w-1.5 h-1.5 shrink-0 rotate-45 bg-silver-400" aria-hidden="true" />
+                            {point}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="flex flex-wrap gap-2">
+                        {exp.tags.map((tag) => (
+                          <span key={tag} className="tag">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </SpotlightCard>
+                  </Reveal>
+
+                  {/* Spacer for alternating layout */}
+                  <div className="hidden md:block md:w-1/2" />
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </div>
     </section>
