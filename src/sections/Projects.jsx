@@ -29,6 +29,7 @@ const projects = [
       "Node.js",
       "Express",
       "PostgreSQL",
+      "Redis",
       "ReactJs",
       "Sequelize ORM",
       "TypeScript",
