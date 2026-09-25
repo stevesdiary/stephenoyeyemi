@@ -17,12 +17,13 @@ export const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-surface/50">
+    <footer className="relative border-t border-border bg-navy-950/60">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-2/3 bg-gradient-to-r from-transparent via-silver-300/40 to-transparent" aria-hidden="true" />
       <div className="container mx-auto px-6 py-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
-          <a href="#" className="text-2xl font-bold text-primary">
-            SO<span className="text-highlight">.</span>
+          <a href="#" className="grid place-items-center w-10 h-10 rounded-lg border border-silver-300/20 bg-navy-800 font-mono text-sm text-silver-100 hover:rotate-[8deg] transition-transform duration-500">
+            SO
           </a>
 
           {/* Nav links */}
@@ -31,7 +32,7 @@ export const Footer = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm text-muted-foreground hover:text-silver-100 transition-colors"
               >
                 {link.label}
               </a>
@@ -47,7 +48,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="p-2 rounded-full hover:bg-primary/10 hover:text-primary transition-all duration-300 text-muted-foreground"
+                className="p-2 rounded-full hover:bg-silver-200 hover:text-navy-900 hover:-translate-y-0.5 transition-all duration-300 text-muted-foreground"
               >
                 <social.icon className="w-4 h-4" />
               </a>
@@ -64,9 +65,9 @@ export const Footer = () => {
           <a
             href="#"
             aria-label="Back to top"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+            className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-silver-100 transition-colors"
           >
-            Back to top <ArrowUp className="w-4 h-4" />
+            Back to top <ArrowUp className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1" />
           </a>
         </div>
       </div>
