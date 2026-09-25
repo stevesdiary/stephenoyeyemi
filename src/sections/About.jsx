@@ -1,3 +1,7 @@
+import { Reveal } from '@/components/Reveal';
+import { SectionHeading } from '@/components/SectionHeading';
+import { SpotlightCard } from '@/components/SpotlightCard';
+import { CountUp } from '@/components/CountUp';
 import { Code2, Database, GitBranch, Globe, Layers, Lightbulb, Rocket, Server, Terminal, Users } from 'lucide-react';
 
 const highlights = [
@@ -60,42 +64,40 @@ const skills = [
 
 export const About = () => {
   return (
-    <section id="about" className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-1/4 right-0 w-96 h-96 rounded-full opacity-5"
-          style={{ background: "radial-gradient(circle, var(--color-primary), transparent 70%)" }}
-        />
+    <section id="about" className="py-28 relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute top-1/4 -right-32 w-[28rem] h-[28rem] rounded-full bg-navy-600/30 blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-6">
-        {/* Section header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <span className="text-primary text-sm font-medium tracking-widest uppercase">About Me</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-2">Who I Am</h2>
-        </div>
+        <SectionHeading eyebrow="About Me" title="Who I Am" />
 
         {/* Bio + photo */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          <div className="relative animate-fade-in order-first">
-            <div className="relative max-w-sm mx-auto lg:mx-0">
-              <div
-                className="absolute -inset-4 rounded-2xl opacity-20 blur-2xl"
-                style={{ background: "var(--color-primary)" }}
-              />
-              <img
-                src={`${import.meta.env.BASE_URL}profile-steve.png`}
-                alt="Stephen Oyeyemi"
-                className="relative w-full aspect-square object-cover rounded-2xl"
-              />
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+          <Reveal direction="left" className="relative order-first">
+            <div className="relative max-w-sm mx-auto lg:mx-0 group">
+              <div className="absolute -inset-4 rounded-3xl bg-navy-400/20 blur-2xl transition-opacity duration-500 group-hover:opacity-80" />
+              {/* Offset silver frame */}
+              <div className="absolute inset-0 translate-x-4 translate-y-4 rounded-2xl border border-silver-300/25 transition-transform duration-500 ease-out group-hover:translate-x-2 group-hover:translate-y-2" />
+              <div className="relative overflow-hidden rounded-2xl">
+                <img
+                  src={`${import.meta.env.BASE_URL}profile-steve.png`}
+                  alt="Stephen Oyeyemi"
+                  width="384"
+                  height="384"
+                  loading="lazy"
+                  className="w-full aspect-square object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/50 to-transparent" />
+              </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="space-y-8 animate-fade-in animation-delay-200">
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold">
+          <div className="space-y-8">
+            <Reveal className="space-y-4" delay={100}>
+              <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
                 Software Engineer specializing in{' '}
-                <span className="text-primary">backend systems</span>
+                <span className="font-serif italic font-normal text-silver-200">backend systems</span>
               </h3>
               <p className="text-muted-foreground leading-relaxed">
                 I'm Stephen Oyeyemi, a passionate Software Engineer based in Nigeria with over 4 years of
@@ -108,46 +110,56 @@ export const About = () => {
                 not writing code, I'm exploring new technologies, reading, contributing to open-source, and sharing
                 knowledge with the developer community.
               </p>
-            </div>
+            </Reveal>
 
             <div className="grid grid-cols-2 gap-4">
               {stats.map((stat, i) => (
-                <div key={i} className="glass rounded-xl p-4 text-center">
-                  <div className="text-3xl font-bold text-primary glow-text">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
-                </div>
+                <Reveal key={stat.label} direction="scale" delay={200 + i * 80}>
+                  <SpotlightCard className="glass rounded-xl p-5 text-center h-full transition-colors duration-300 hover:border-silver-300/30">
+                    <CountUp value={stat.value} className="block text-3xl md:text-4xl font-semibold text-silver" />
+                    <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
+                  </SpotlightCard>
+                </Reveal>
               ))}
             </div>
           </div>
         </div>
 
         {/* Highlights */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 animate-fade-in animation-delay-300">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
           {highlights.map((item, i) => (
-            <div key={i} className="glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-300">
-              <item.icon className="w-8 h-8 text-primary mb-4" />
-              <h4 className="font-semibold mb-2">{item.title}</h4>
-              <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
-            </div>
+            <Reveal key={item.title} delay={i * 90}>
+              <SpotlightCard className="group glass rounded-2xl p-6 h-full transition-all duration-500 hover:-translate-y-1 hover:border-silver-300/30">
+                <div className="w-12 h-12 mb-5 grid place-items-center rounded-xl bg-gradient-to-br from-navy-600 to-navy-800 border border-silver-300/15 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+                  <item.icon className="w-6 h-6 text-silver-100" aria-hidden="true" />
+                </div>
+                <h4 className="font-semibold mb-2">{item.title}</h4>
+                <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+              </SpotlightCard>
+            </Reveal>
           ))}
         </div>
 
         {/* Tech stack */}
-        <div className="animate-fade-in animation-delay-400">
-          <h3 className="text-center text-xl font-semibold mb-8 text-muted-foreground">
+        <div>
+          <Reveal as="h3" className="text-center eyebrow mb-8">
             Tech Stack &amp; Tools
-          </h3>
-          <div className="flex flex-wrap justify-center gap-3">
+          </Reveal>
+          <ul className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
             {skills.map((skill, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-2 px-4 py-2 glass rounded-full hover:border-primary/40 hover:text-primary transition-all duration-300 cursor-default"
+              <Reveal
+                as="li"
+                key={skill.name}
+                direction="scale"
+                delay={i * 30}
               >
-                <skill.icon className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium">{skill.name}</span>
-              </div>
+                <span className="group flex items-center gap-2 px-4 py-2 glass rounded-full text-silver-200 hover:text-navy-900 hover:bg-silver-200 hover:border-silver-200 transition-colors duration-300 cursor-default">
+                  <skill.icon className="w-4 h-4 text-silver-400 group-hover:text-navy-700 transition-colors duration-300" aria-hidden="true" />
+                  <span className="text-sm font-medium">{skill.name}</span>
+                </span>
+              </Reveal>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </section>
