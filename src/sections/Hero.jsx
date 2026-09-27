@@ -200,7 +200,7 @@ export const Hero = () => {
             </div>
 
             <div className="flex items-center gap-3 animate-fade-in" style={{ animationDelay: "950ms" }}>
-              <span className="text-sm text-muted-foreground mr-1">Follow me</span>
+              <span className="text-sm text-muted-foreground mr-1">Connect with me</span>
               {socials.map((social) => (
                 <a
                   key={social.label}
