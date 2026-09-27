@@ -6,6 +6,8 @@ import { SpotlightCard } from "@/components/SpotlightCard";
 const projects = [
   {
     id: 1,
+    role: "Solo · Full stack",
+    challenge: "Real-time tracking",
     title: "TRAKA Logistics",
     description:
       "A logistics application featuring a backend API, mobile app, and web page for administrative management — streamlining operations and tracking across the supply chain.",
@@ -24,6 +26,8 @@ const projects = [
   },
   {
     id: 2,
+    role: "Solo · Full stack, backend-first",
+    challenge: "Access-control logic",
     title: "Lockwise - Real Estate Management Platform",
     description:
       "A real estate management platform with security access features — enabling property management, tenant oversight, and secure access control.",
@@ -41,6 +45,7 @@ const projects = [
   },
   {
     id: 3,
+    role: "Solo · Full stack",
     title: "SchoolOS - School Management Platform",
     description:
       "A school management platform for private schools with a mobile app for parents — providing real-time updates, payment processing, and student performance tracking.",
@@ -58,10 +63,11 @@ const projects = [
   },
   {
     id: 4,
+    role: "Backend engineer · Team of 8",
     title: "E-commerce Platform",
     description:
       "A full-featured e-commerce platform with seller management, product catalog, order processing, Stripe payments, return handling, and real-time push notifications.",
-    image: `${import.meta.env.BASE_URL}fashion-ecommerce-project.png`,
+    image: `${import.meta.env.BASE_URL}fashion-ecommerce-project.webp`,
     tags: [
       "Node.js",
       "Express",
@@ -99,8 +105,17 @@ const ProjectCard = ({ project, index }) => {
 
       <div className="flex flex-col justify-between p-6 flex-1">
         <div className="space-y-3">
-          <h3 className="text-xl font-semibold tracking-tight">{project.title}</h3>
+          <div>
+            <h3 className="text-xl font-semibold tracking-tight">{project.title}</h3>
+            <p className="font-mono text-xs text-silver-300 mt-1.5">{project.role}</p>
+          </div>
           <p className="text-muted-foreground text-sm leading-relaxed">{project.description}</p>
+          {project.challenge && (
+            <p className="text-sm">
+              <span className="eyebrow mr-2">Key challenge</span>
+              <span className="text-silver-100">{project.challenge}</span>
+            </p>
+          )}
           <div className="flex flex-wrap gap-2 pt-1">
             {project.tags.map((tag) => (
               <span key={tag} className="tag">

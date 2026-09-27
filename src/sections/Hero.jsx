@@ -108,7 +108,7 @@ export const Hero = () => {
       {/* Background — the teal photo is desaturated and tinted navy */}
       <div className="absolute inset-0" aria-hidden="true">
         <img
-          src={`${import.meta.env.BASE_URL}hero-background.jpg`}
+          src={`${import.meta.env.BASE_URL}hero-background.webp`}
           alt=""
           className="w-full h-full object-cover opacity-35 grayscale contrast-125"
         />
@@ -238,7 +238,7 @@ export const Hero = () => {
                 className="relative glass rounded-3xl p-2 glow-border transition-transform duration-300 ease-out will-change-transform"
               >
                 <img
-                  src={`${import.meta.env.BASE_URL}profile-steve.png`}
+                  src={`${import.meta.env.BASE_URL}profile-steve.webp`}
                   alt="Stephen Oyeyemi"
                   width="448"
                   height="560"

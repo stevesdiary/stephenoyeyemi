@@ -81,7 +81,7 @@ export const About = () => {
               <div className="absolute inset-0 translate-x-4 translate-y-4 rounded-2xl border border-silver-300/25 transition-transform duration-500 ease-out group-hover:translate-x-2 group-hover:translate-y-2" />
               <div className="relative overflow-hidden rounded-2xl">
                 <img
-                  src={`${import.meta.env.BASE_URL}profile-steve.png`}
+                  src={`${import.meta.env.BASE_URL}profile-steve.webp`}
                   alt="Stephen Oyeyemi"
                   width="384"
                   height="384"
