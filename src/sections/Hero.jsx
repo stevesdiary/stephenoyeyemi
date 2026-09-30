@@ -27,6 +27,14 @@ const skills = [
   "Next.js",
   "Redis",
   "MySQL",
+  "Flutter",
+  "React Native",
+  "REST APIs",
+  "Microservices",
+  "Serverless",
+  "CI/CD",
+  "Jest",
+  "Mocha",
 ];
 
 const roles = ["scalable APIs", "payment systems", "microservices", "backend platforms"];
