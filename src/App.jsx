@@ -1,35 +1,39 @@
-import {Hero} from "@/sections/Hero";
-import {About} from "@/sections/About";
-import {Projects} from "@/sections/Projects";
-import {Experience} from "@/sections/Experience";
-import {Testimonials} from "@/sections/Testimonials";
-import {Contact} from "@/sections/Contact";
-import {Navbar} from "@/layout/Navbar";
-import {Footer} from "@/layout/Footer";
-import {ScrollProgress} from "@/components/ScrollProgress";
+import { LazyMotion, MotionConfig, domAnimation } from "motion/react";
+import { Navbar } from "@/layout/Navbar";
+import { Footer } from "@/layout/Footer";
+import { Hero } from "@/sections/Hero";
+import { Work } from "@/sections/Work";
+import { Experience } from "@/sections/Experience";
+import { About } from "@/sections/About";
+import { Contact } from "@/sections/Contact";
 
 function App() {
   return (
-    <div className="min-h-screen overflow-x-hidden">
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-silver-100 focus:text-navy-900"
-      >
-        Skip to content
-      </a>
-      <ScrollProgress />
-      <Navbar />
-      <main id="main">
-        <Hero />
-        <About />
-        <Projects />
-        <Experience />
-        <Testimonials />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
-  )
+    // reducedMotion="user": honour the OS setting by dropping transforms, keeping opacity fades.
+    // LazyMotion + `m` components ship only the DOM animation features we use.
+    <LazyMotion features={domAnimation} strict>
+    <MotionConfig reducedMotion="user">
+      <div id="top" className="min-h-dvh overflow-x-clip">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[110] focus:px-4 focus:py-2 focus:rounded-full focus:bg-paper focus:text-ink"
+        >
+          Skip to content
+        </a>
+        <Navbar />
+        <main id="main">
+          <Hero />
+          <Work />
+          <Experience />
+          <About />
+          <Contact />
+        </main>
+        <Footer />
+        <div className="grain" aria-hidden="true" />
+      </div>
+    </MotionConfig>
+    </LazyMotion>
+  );
 }
 
-export default App
+export default App;
