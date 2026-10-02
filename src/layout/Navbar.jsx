@@ -1,129 +1,152 @@
-import { Button } from "@/components/Button";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { AnimatePresence, m, useMotionValueEvent, useScroll } from "motion/react";
+import { LocalTime } from "@/components/LocalTime";
+import { navLinks, profile } from "@/data/content";
+import { ease } from "@/lib/motion";
 
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-];
-
-export const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+const useActiveSection = () => {
+  const [active, setActive] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Highlight the nav link for whichever section sits in the middle of the viewport
-  useEffect(() => {
-    const sections = ["about", "projects", "experience", "contact"]
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
-
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(`#${entry.target.id}`);
-        });
+        entries.forEach((entry) => entry.isIntersecting && setActive(`#${entry.target.id}`));
       },
       { rootMargin: "-45% 0px -50% 0px" }
     );
-
-    sections.forEach((section) => observer.observe(section));
+    navLinks
+      .map((l) => document.querySelector(l.href))
+      .filter(Boolean)
+      .forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
+  return active;
+};
+
+export const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const active = useActiveSection();
+  const { scrollY } = useScroll();
+
+  // Get out of the way while reading down; come back as soon as the reader scrolls up.
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setScrolled(y > 24);
+    setHidden(y > prev && y > 320 && !open);
+  });
+
   useEffect(() => {
-    const onKeyDown = (e) => e.key === "Escape" && setIsMobileMenuOpen(false);
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+    if (!open) return;
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 transition-all duration-500 ${isScrolled ? "glass-strong py-3" : "bg-transparent py-5"} z-50`}>
-      <nav className="container mx-auto px-6 flex items-center justify-between" aria-label="Primary">
-        <a href="#" className="group flex items-center gap-2 text-xl font-semibold tracking-tight">
-          <span className="relative grid place-items-center w-9 h-9 rounded-lg border border-silver-300/20 bg-navy-800 font-mono text-sm text-silver-100 transition-transform duration-500 group-hover:rotate-[8deg]">
+    <>
+    <m.header
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 border-b ${
+        scrolled || open ? "bg-ink/80 backdrop-blur-md border-line" : "border-transparent"
+      }`}
+      animate={{ y: hidden ? "-100%" : "0%" }}
+      transition={{ duration: 0.35, ease: ease.out }}
+    >
+      <nav className="shell h-16 flex items-center justify-between" aria-label="Primary">
+        <a href="#top" className="group flex items-center gap-3 font-medium tracking-tight">
+          <span className="grid place-items-center size-8 rounded-full bg-paper text-ink font-mono text-[0.6875rem] font-semibold transition-colors duration-300 group-hover:bg-signal">
             SO
           </span>
-          <span className="hidden sm:inline text-silver-100">
-            Stephen<span className="text-silver-400">.</span>
-          </span>
+          <span className="hidden sm:inline">{profile.name}</span>
         </a>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-1">
-          <div className="glass rounded-full px-1.5 py-1.5 flex items-center gap-1">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href;
-              return (
-                <a
-                  href={link.href}
-                  key={link.href}
-                  aria-current={isActive ? "true" : undefined}
-                  className={`relative px-4 py-2 text-sm rounded-full transition-colors duration-300 ${
-                    isActive
-                      ? "text-navy-900 bg-silver-200"
-                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              );
-            })}
-          </div>
+        <ul className="hidden md:flex items-center gap-8">
+          {navLinks.map((link, i) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                aria-current={active === link.href ? "location" : undefined}
+                className={`group flex items-baseline gap-1.5 text-sm transition-colors ${
+                  active === link.href ? "text-paper" : "text-muted hover:text-paper"
+                }`}
+              >
+                <span className={`font-mono text-[0.625rem] ${active === link.href ? "text-signal" : "text-faint"}`}>
+                  0{i + 1}
+                </span>
+                <span className="link-draw">{link.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="hidden md:flex items-center gap-2 label">
+          <span className="size-1.5 rounded-full bg-ok animate-pulse-dot" aria-hidden="true" />
+          {profile.location.split(",")[0]} <LocalTime timeZone={profile.timeZone} label={profile.timeZoneLabel} />
         </div>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:block">
-          <a href="#contact" tabIndex={-1}>
-            <Button size="sm">Contact Me</Button>
-          </a>
-        </div>
-
-        {/* Mobile toggle */}
         <button
-          className="md:hidden p-2.5 rounded-lg text-foreground cursor-pointer hover:bg-white/5 transition-colors"
-          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isMobileMenuOpen}
+          type="button"
+          className="md:hidden relative size-10 -mr-2 grid place-items-center"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
           aria-controls="mobile-menu"
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          <span className="sr-only">Menu</span>
+          <m.span
+            className="absolute h-px w-5 bg-paper"
+            animate={open ? { rotate: 45, y: 0 } : { rotate: 0, y: -3 }}
+            transition={{ duration: 0.3, ease: ease.out }}
+          />
+          <m.span
+            className="absolute h-px w-5 bg-paper"
+            animate={open ? { rotate: -45, y: 0 } : { rotate: 0, y: 3 }}
+            transition={{ duration: 0.3, ease: ease.out }}
+          />
         </button>
       </nav>
 
-      {/* Mobile menu */}
-      {isMobileMenuOpen && (
-        <div id="mobile-menu" className="md:hidden glass-strong animate-fade-in">
-          <div className="container mx-auto px-6 py-6 flex flex-col gap-2">
-            {navLinks.map((link, index) => (
-              <a
-                href={link.href}
-                key={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`animate-fade-in text-lg py-3 border-b border-border/60 transition-colors ${
-                  activeSection === link.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
-                style={{ animationDelay: `${index * 60}ms` }}
-              >
-                {link.label}
-              </a>
-            ))}
-            <a href="#contact" tabIndex={-1} className="mt-4">
-              <Button className="w-full" onClick={() => setIsMobileMenuOpen(false)}>Contact Me</Button>
-            </a>
-          </div>
-        </div>
-      )}
-    </header>
+    </m.header>
+
+      {/* Sibling of the header: its transform and backdrop-filter would otherwise trap this fixed overlay */}
+      <AnimatePresence>
+        {open && (
+          <m.div
+            id="mobile-menu"
+            className="md:hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-ink"
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.5, ease: ease.out }}
+          >
+            <ul className="shell pt-10 space-y-2">
+              {navLinks.map((link, i) => (
+                <m.li
+                  key={link.href}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: ease.out, delay: 0.1 + i * 0.05 }}
+                >
+                  <a
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-baseline gap-4 py-3 text-5xl font-semibold tracking-tight border-b border-line"
+                  >
+                    <span className="font-mono text-xs text-signal">0{i + 1}</span>
+                    {link.label}
+                  </a>
+                </m.li>
+              ))}
+            </ul>
+          </m.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
