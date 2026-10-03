@@ -26,7 +26,7 @@ export const Navbar = () => {
   useEffect(() => {
     const sections = ["about", "projects", "experience", "contact"]
       .map((id) => document.getElementById(id))
-      .filter(Boolean);
+      .filter((el): el is HTMLElement => el !== null);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -42,7 +42,9 @@ export const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const onKeyDown = (e) => e.key === "Escape" && setIsMobileMenuOpen(false);
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMobileMenuOpen(false);
+    };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { Github, Linkedin, Mail, Send } from 'lucide-react';
 import { Button } from '@/components/Button';
 import { Reveal } from '@/components/Reveal';
@@ -8,13 +9,17 @@ import { SpotlightCard } from '@/components/SpotlightCard';
 // Formspree form endpoint (https://formspree.io)
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzdlvpal";
 
-export const Contact = () => {
-  const [status, setStatus] = useState("idle");
+type SubmitStatus = "idle" | "sending" | "sent" | "error";
 
-  const handleSubmit = async (e) => {
+export const Contact = () => {
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("sending");
-    const data = new FormData(e.target);
+    // Captured before the await — React nulls currentTarget once the handler returns.
+    const form = e.currentTarget;
+    const data = new FormData(form);
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
@@ -23,7 +28,7 @@ export const Contact = () => {
       });
       if (res.ok) {
         setStatus("sent");
-        e.target.reset();
+        form.reset();
       } else {
         setStatus("error");
       }

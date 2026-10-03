@@ -3,7 +3,18 @@ import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SpotlightCard } from "@/components/SpotlightCard";
 
-const projects = [
+type Project = {
+  id: number;
+  role: string;
+  challenge?: string;
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  liveUrl: string;
+};
+
+const projects: Project[] = [
   {
     id: 1,
     role: "Solo · Full stack",
@@ -82,7 +93,12 @@ const projects = [
   },
 ];
 
-const ProjectCard = ({ project, index }) => {
+type ProjectCardProps = {
+  project: Project;
+  index: number;
+};
+
+const ProjectCard = ({ project, index }: ProjectCardProps) => {
   const hasLiveUrl = project.liveUrl && project.liveUrl !== "#";
 
   return (

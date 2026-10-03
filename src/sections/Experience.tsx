@@ -1,9 +1,20 @@
 import { useEffect, useRef, useState } from "react";
+import type { RefObject } from "react";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SpotlightCard } from "@/components/SpotlightCard";
 
-const experiences = [
+type ExperienceEntry = {
+  role: string;
+  company: string;
+  type?: string;
+  location: string;
+  period: string;
+  highlights: string[];
+  tags: string[];
+};
+
+const experiences: ExperienceEntry[] = [
   {
     role: "Backend Application Developer",
     company: "ProvidusUnity Bank Ltd.",
@@ -59,12 +70,15 @@ const experiences = [
 
 // Tracks how far (0→1) the timeline has scrolled past 60% of the viewport,
 // and which dots the drawn line has reached.
-const useTimelineProgress = (dotRefs) => {
-  const ref = useRef(null);
-  const [state, setState] = useState({ progress: 0, reached: [] });
+const useTimelineProgress = (dotRefs: RefObject<(HTMLDivElement | null)[]>) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [state, setState] = useState<{ progress: number; reached: boolean[] }>({
+    progress: 0,
+    reached: [],
+  });
 
   useEffect(() => {
-    let frame;
+    let frame: number | null = null;
     const update = () => {
       frame = null;
       const el = ref.current;
@@ -93,11 +107,11 @@ const useTimelineProgress = (dotRefs) => {
     };
   }, [dotRefs]);
 
-  return [ref, state.progress, state.reached];
+  return [ref, state.progress, state.reached] as const;
 };
 
 export const Experience = () => {
-  const dotRefs = useRef([]);
+  const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [timelineRef, progress, reached] = useTimelineProgress(dotRefs);
 
   return (
