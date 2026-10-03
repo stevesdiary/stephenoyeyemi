@@ -1,81 +1,167 @@
-import { m } from "motion/react";
-import { Reveal } from "@/components/Reveal";
-import { SectionHeader } from "@/components/SectionHeader";
-import { principles, profile, stack } from "@/data/content";
-import { ease } from "@/lib/motion";
+import { Reveal } from '@/components/Reveal';
+import { SectionHeading } from '@/components/SectionHeading';
+import { SpotlightCard } from '@/components/SpotlightCard';
+import { CountUp } from '@/components/CountUp';
+import { Code2, Database, GitBranch, Globe, Layers, Lightbulb, Rocket, Server, Terminal, Users } from 'lucide-react';
 
-export const About = () => (
-  <section id="about" className="py-28 md:py-40" aria-labelledby="about-title">
-    <div className="shell">
-      <SectionHeader id="about-title" index="03" label="About" title={["The person", "behind the pager."]} />
+const highlights = [
+  {
+    icon: Code2,
+    title: "Clean Code",
+    description: "Writing maintainable, efficient code with proper documentation and testing.",
+  },
+  {
+    icon: Rocket,
+    title: "Performance",
+    description: "Optimising for speed with logical approaches and delivering scalable solutions.",
+  },
+  {
+    icon: Users,
+    title: "Collaboration",
+    description: "Effective communication and teamwork to achieve project goals.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Innovation",
+    description: "Staying ahead with the latest technologies and best practices.",
+  },
+];
 
-      <div className="grid lg:grid-cols-12 gap-12 lg:gap-8">
-        <figure className="lg:col-span-4">
-          {/* Clip-path wipe reveals the portrait top to bottom on first view */}
-          <m.div
-            className="group overflow-hidden rounded-xl border border-line"
-            initial={{ clipPath: "inset(0 0 100% 0)" }}
-            whileInView={{ clipPath: "inset(0 0 0% 0)" }}
-            viewport={{ once: true, margin: "0px 0px -15% 0px" }}
-            transition={{ duration: 1.2, ease: ease.out }}
-          >
-            <img
-              src={profile.portrait}
-              alt={`Portrait of ${profile.name}`}
-              width="900"
-              height="916"
-              loading="lazy"
-              className="w-full aspect-[4/5] object-cover grayscale contrast-110 transition-[filter,transform] duration-700 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
-            />
-          </m.div>
-          <figcaption className="label mt-3">Fig. 1: Stephen, probably thinking about indexes.</figcaption>
-        </figure>
+const yearsOfExperience = new Date().getFullYear() - 2022;
 
-        <div className="lg:col-span-7 lg:col-start-6 space-y-16">
-          <Reveal className="space-y-5 text-lg md:text-xl leading-relaxed text-paper/80">
-            <p>
-              I&rsquo;m a software engineer in {profile.location} who ended up specialising in the
-              unglamorous half of the stack: the services that move money, validate transactions and
-              keep running when traffic doesn&rsquo;t behave.
-            </p>
-            <p className="text-muted">
-              I work best on small teams with real ownership. Give me a vague requirement and a
-              production database, and I&rsquo;ll come back with a design doc, a migration plan and
-              the tests that prove it.
-            </p>
+const stats = [
+  { value: `${yearsOfExperience}+`, label: "Years Experience" },
+  { value: "13M+", label: "Transactions / Month" },
+  { value: "2M+", label: "Active Users Served" },
+  { value: "99.9%", label: "Uptime Achieved" },
+];
+
+const skills = [
+  { name: "Node.js", icon: Server },
+  { name: "TypeScript", icon: Code2 },
+  { name: "JavaScript", icon: Code2 },
+  { name: "Express.js", icon: Layers },
+  { name: "Fastify", icon: Layers },
+  { name: "Nest.js", icon: Layers},
+  { name: "PostgreSQL", icon: Database },
+  { name: "MySQL", icon: Database },
+  { name: "Microsoft SQL Server", icon: Database },
+  { name: "AWS S3", icon: Database },
+  { name: "AWS Lambda", icon: Server },
+  { name: "Cloudflare", icon: Server },
+  { name: "Redis", icon: Database },
+  { name: "BullMQ", icon: Database },
+  { name: "MongoDB", icon: Database },
+  { name: "Sequelize ORM", icon: Database },
+  { name: "Drizzle", icon: Database },
+  { name: "Prisma ORM", icon: Database },
+  { name: "REST APIs", icon: Globe },
+  { name: "Microservices", icon: Globe },
+  { name: "Docker", icon: Server },
+  { name: "Git & GitHub", icon: GitBranch },
+  { name: "JWT Auth", icon: Terminal },
+];
+
+export const About = () => {
+  return (
+    <section id="about" className="py-28 relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute top-1/4 -right-32 w-[28rem] h-[28rem] rounded-full bg-navy-600/30 blur-[120px]" />
+      </div>
+
+      <div className="container mx-auto px-6">
+        <SectionHeading eyebrow="About Me" title="Who I Am" />
+
+        {/* Bio + photo */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+          <Reveal direction="left" className="relative order-first">
+            <div className="relative max-w-sm mx-auto lg:mx-0 group">
+              <div className="absolute -inset-4 rounded-3xl bg-navy-400/20 blur-2xl transition-opacity duration-500 group-hover:opacity-80" />
+              {/* Offset silver frame */}
+              <div className="absolute inset-0 translate-x-4 translate-y-4 rounded-2xl border border-silver-300/25 transition-transform duration-500 ease-out group-hover:translate-x-2 group-hover:translate-y-2" />
+              <div className="relative overflow-hidden rounded-2xl">
+                <img
+                  src={`${import.meta.env.BASE_URL}profile-steve.webp`}
+                  alt="Stephen Oyeyemi"
+                  width="384"
+                  height="384"
+                  loading="lazy"
+                  className="w-full aspect-square object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/50 to-transparent" />
+              </div>
+            </div>
           </Reveal>
 
-          <div>
-            <Reveal as="h3" className="label mb-6" y={8}>How I work</Reveal>
-            <ol className="grid sm:grid-cols-3 gap-8 sm:gap-6">
-              {principles.map((p, i) => (
-                <Reveal as="li" key={p.title} delay={i * 0.08} className="border-t border-line pt-5">
-                  <span className="label text-signal tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                  <h4 className="mt-3 font-semibold tracking-tight">{p.title}</h4>
-                  <p className="mt-2 text-sm text-muted leading-relaxed">{p.body}</p>
-                </Reveal>
-              ))}
-            </ol>
-          </div>
+          <div className="space-y-8">
+            <Reveal className="space-y-4" delay={100}>
+              <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+                Software Engineer specializing in{' '}
+                <span className="font-serif italic font-normal text-silver-200">backend systems</span>
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                I'm Stephen Oyeyemi, a passionate Software Engineer based in Nigeria with over 4 years of
+                experience building scalable, high-performance web applications. I specialize in Node.js,
+                Express.js, and TypeScript — crafting clean APIs and robust backend architectures that
+                power great products.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                I thrive at the intersection of great engineering and meaningful user experiences. When I'm
+                not writing code, I'm exploring new technologies, reading, contributing to open-source, and sharing
+                knowledge with the developer community.
+              </p>
+            </Reveal>
 
-          <div>
-            <Reveal as="h3" className="label mb-6" y={8}>Stack</Reveal>
-            <dl className="border-t border-line">
-              {stack.map((row, i) => (
-                <Reveal
-                  key={row.group}
-                  delay={i * 0.04}
-                  y={8}
-                  className="grid grid-cols-1 sm:grid-cols-[12rem_1fr] gap-x-6 gap-y-1 py-4 border-b border-line"
-                >
-                  <dt className="label pt-0.5">{row.group}</dt>
-                  <dd className="text-paper/90">{row.items.join(", ")}</dd>
+            <div className="grid grid-cols-2 gap-4">
+              {stats.map((stat, i) => (
+                <Reveal key={stat.label} direction="scale" delay={200 + i * 80}>
+                  <SpotlightCard className="glass rounded-xl p-5 text-center h-full transition-colors duration-300 hover:border-silver-300/30">
+                    <CountUp value={stat.value} className="block text-3xl md:text-4xl font-semibold text-silver" />
+                    <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
+                  </SpotlightCard>
                 </Reveal>
               ))}
-            </dl>
+            </div>
           </div>
         </div>
+
+        {/* Highlights */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+          {highlights.map((item, i) => (
+            <Reveal key={item.title} delay={i * 90}>
+              <SpotlightCard className="group glass rounded-2xl p-6 h-full transition-all duration-500 hover:-translate-y-1 hover:border-silver-300/30">
+                <div className="w-12 h-12 mb-5 grid place-items-center rounded-xl bg-gradient-to-br from-navy-600 to-navy-800 border border-silver-300/15 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+                  <item.icon className="w-6 h-6 text-silver-100" aria-hidden="true" />
+                </div>
+                <h4 className="font-semibold mb-2">{item.title}</h4>
+                <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+              </SpotlightCard>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Tech stack */}
+        <div>
+          <Reveal as="h3" className="text-center eyebrow mb-8">
+            Tech Stack &amp; Tools
+          </Reveal>
+          <ul className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            {skills.map((skill, i) => (
+              <Reveal
+                as="li"
+                key={skill.name}
+                direction="scale"
+                delay={i * 30}
+              >
+                <span className="group flex items-center gap-2 px-4 py-2 glass rounded-full text-silver-200 hover:text-navy-900 hover:bg-silver-200 hover:border-silver-200 transition-colors duration-300 cursor-default">
+                  <skill.icon className="w-4 h-4 text-silver-400 group-hover:text-navy-700 transition-colors duration-300" aria-hidden="true" />
+                  <span className="text-sm font-medium">{skill.name}</span>
+                </span>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
