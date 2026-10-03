@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { PointerEvent } from "react";
 import { Button } from "@/components/Button";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 import { prefersReducedMotion } from "@/hooks/useInView";
@@ -47,7 +48,15 @@ const socials = [
 
 const yearsExp = new Date().getFullYear() - 2022;
 
-const dots = [...Array(24)].map(() => ({
+type Dot = {
+  left: string;
+  top: string;
+  size: number;
+  duration: string;
+  delay: string;
+};
+
+const dots: Dot[] = [...Array(24)].map(() => ({
   left: `${Math.random() * 100}%`,
   top: `${Math.random() * 100}%`,
   size: Math.random() > 0.7 ? 2 : 1,
@@ -55,7 +64,15 @@ const dots = [...Array(24)].map(() => ({
   delay: `${Math.random() * 5}s`,
 }));
 
-const headline = [
+type HeadlineWord = {
+  text?: string;
+  silver?: boolean;
+  serif?: boolean;
+  break?: boolean;
+  delay?: number;
+};
+
+const headline: HeadlineWord[] = [
   { text: "Engineering" },
   { text: "reliable", silver: true },
   { text: "backends," },
@@ -67,7 +84,7 @@ const headline = [
 
 // Stagger each word's entrance; line breaks don't consume a slot
 let wordCount = 0;
-const headlineWords = headline.map((word) =>
+const headlineWords: HeadlineWord[] = headline.map((word) =>
   word.break ? word : { ...word, delay: 120 + wordCount++ * 90 }
 );
 
@@ -96,9 +113,9 @@ const RotatingRole = () => {
 };
 
 export const Hero = () => {
-  const portraitRef = useRef(null);
+  const portraitRef = useRef<HTMLDivElement>(null);
 
-  const handlePointerMove = (e) => {
+  const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
     const el = portraitRef.current;
     if (!el || prefersReducedMotion()) return;
     const rect = el.getBoundingClientRect();

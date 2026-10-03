@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    /* Shared by every project in this repo. Environment-specific options
+       (lib, types, jsx) belong in tsconfig.app.json / tsconfig.node.json. */
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+
+    /* Vite owns emit; tsc only type-checks. */
+    "noEmit": true,
+    "erasableSyntaxOnly": true,
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  }
+}

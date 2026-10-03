@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { prefersReducedMotion, useInView } from "@/hooks/useInView";
 
+type CountUpProps = {
+  value: string;
+  duration?: number;
+  className?: string;
+};
+
 // Animates the numeric part of a value like "13M+" or "99.9%" when it scrolls into view.
-export const CountUp = ({ value, duration = 1600, className = "" }) => {
-  const [ref, inView] = useInView({ threshold: 0.5 });
+export const CountUp = ({ value, duration = 1600, className = "" }: CountUpProps) => {
+  const [ref, inView] = useInView<HTMLSpanElement>({ threshold: 0.5 });
   const match = /^([\d.]+)(.*)$/.exec(value);
   const target = match ? parseFloat(match[1]) : 0;
   const suffix = match ? match[2] : "";
@@ -17,9 +23,9 @@ export const CountUp = ({ value, duration = 1600, className = "" }) => {
       return;
     }
 
-    let frame;
+    let frame: number;
     const start = performance.now();
-    const tick = (now) => {
+    const tick = (now: number) => {
       const t = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - t, 4);
       setCurrent(target * eased);
