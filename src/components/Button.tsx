@@ -1,8 +1,15 @@
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
+type ButtonSize = "sm" | "default" | "lg";
 
-export const Button = ({className ="", size = "default", children, ...props}) => {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  size?: ButtonSize;
+  children?: ReactNode;
+};
+
+export const Button = ({ className = "", size = "default", children, ...props }: ButtonProps) => {
   const baseClasses = "group/btn relative overflow-hidden rounded-full font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-silver-200 focus-visible:ring-offset-2 focus-visible:ring-offset-background bg-gradient-to-b from-white to-silver-300 text-navy-900 shadow-[0_8px_30px_-8px_rgba(195,204,219,0.45)] hover:shadow-[0_12px_40px_-8px_rgba(195,204,219,0.65)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-300 ease-out disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0";
-  const sizeClasses = {
+  const sizeClasses: Record<ButtonSize, string> = {
     sm: "px-4 py-2 text-sm",
     default: "px-6 py-3 text-base",
     lg: "px-8 py-4 text-lg"
