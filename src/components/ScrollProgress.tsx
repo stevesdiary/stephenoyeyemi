@@ -2,10 +2,10 @@ import { useEffect, useRef } from "react";
 
 // Thin silver bar across the top showing how far down the page the reader is.
 export const ScrollProgress = () => {
-  const barRef = useRef(null);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let frame;
+    let frame: number | null = null;
     const update = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const progress = max > 0 ? window.scrollY / max : 0;

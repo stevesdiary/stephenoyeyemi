@@ -1,6 +1,13 @@
+import type { ReactNode } from "react";
 import { Reveal } from "@/components/Reveal";
 
-export const SectionHeading = ({ eyebrow, title, description }) => (
+type SectionHeadingProps = {
+  eyebrow: ReactNode;
+  title: ReactNode;
+  description?: ReactNode;
+};
+
+export const SectionHeading = ({ eyebrow, title, description }: SectionHeadingProps) => (
   <Reveal className="text-center mb-16">
     <span className="eyebrow inline-flex items-center gap-3">
       <span className="h-px w-8 bg-gradient-to-r from-transparent to-silver-400" />
