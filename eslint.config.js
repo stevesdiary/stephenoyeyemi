@@ -23,8 +23,7 @@ export default defineConfig([
       },
     },
     rules: {
-      // Core ESLint does not see JSX usage; allow components and the `m` namespace (<m.div>).
-      'no-unused-vars': ['error', { varsIgnorePattern: '^([A-Z_]|m$)' }],
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
 ])
